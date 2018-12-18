@@ -701,6 +701,7 @@ _attrType (Value _) = ValueType
 _attrType (Prime _) = PrimeType
 _attrType (Base _) = BaseType
 _attrType (EcParams _) = EcParamsType
+_attrType (EcdsaParams _) = EcdsaParamsType
 _attrType (EcPoint _) = EcPointType
 
 
@@ -717,6 +718,7 @@ _valueSize (Value bs) = BS.length bs
 _valueSize (Prime p) = _bigIntLen p
 _valueSize (Base b) = _bigIntLen b
 _valueSize (EcParams bs) = BS.length bs
+_valueSize (EcdsaParams bs) = BS.length bs
 _valueSize (EcPoint bs) = BS.length bs
 
 
@@ -733,6 +735,7 @@ _pokeValue (Value bs) ptr = unsafeUseAsCStringLen bs $ \(src, len) -> copyBytes 
 _pokeValue (Prime p) ptr = _pokeBigInt p (castPtr ptr)
 _pokeValue (Base b) ptr = _pokeBigInt b (castPtr ptr)
 _pokeValue (EcParams bs) ptr = unsafeUseAsCStringLen bs $ \(src, len) -> copyBytes ptr (castPtr src :: Ptr ()) len
+_pokeValue (EcdsaParams bs) ptr = unsafeUseAsCStringLen bs $ \(src, len) -> copyBytes ptr (castPtr src :: Ptr ()) len
 _pokeValue (EcPoint bs) ptr = unsafeUseAsCStringLen bs $ \(src, len) -> copyBytes ptr (castPtr src :: Ptr ()) len
 
 
